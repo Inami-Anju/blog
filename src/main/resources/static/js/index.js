@@ -5,7 +5,7 @@ $('#po').click(function(){
     $.ajax({
         "url": url,
         "data": data,
-        "type": "post",
+        "type": "get",
         "dataType": "json",
         "contentType": false,
         "processData": false,
