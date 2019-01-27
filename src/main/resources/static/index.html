@@ -1,28 +1,31 @@
 <!DOCTYPE html>
-<html ng-app>
+<html>
 <head>
     <meta charset="UTF-8">
     <title>老mike的小屋</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+    <script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
     <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
-
 </head>
 <body>
-<div>
+<div id="app">
     <label>评论:</label>
-    <input id="inputcommon" type="text" name="comment" ng-model="yourName" placeholder="Enter a name here">
+    <input id="inputcommon" type="text" v-model="message" name="comment" placeholder="input your message">
     <button id="po">提交</button>
     <hr>
-    <h1>Hello {{yourName}}!</h1>
+    <h1>{{ message }}</h1>
     <hr>
     <div id="comment">
-    
+    </div>
+    <div>
+        <p>访问次数：<span>{{count}}</span></p>
     </div>
 </div>
 </body>
+
 <!--该文件放在上面还没能加载页面元素-->
 <script src="js/index.js"></script>
 <script>
+
 
 </script>
 </html>

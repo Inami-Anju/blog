@@ -1,5 +1,6 @@
 $(document).ready(function () {
     showComment();
+    showVisitors();
 });
 
 /*--点击提交事件------------------------------------------------------------------------------------------------------------------------*/
@@ -38,7 +39,7 @@ function showComment() {
         "dataType": "json",
         /*"processData": false,*/
         "success": function(json) {
-            alert("json.status="+json.status);
+            console.log("json.status="+json.status);
             if (json.status == 200) {
                 var data=json.data;
                 $("#comment").empty();
@@ -74,4 +75,44 @@ function showComment() {
     });
 
    
+}
+/*--------显示访问人数------------------------------------------------------------------------------------------------------------------*/
+
+function showVisitors() {
+
+    var url="../visitor";
+    $.ajax({
+        "url": url,
+        "type": "post",
+        "dataType": "json",
+        /*"processData": false,*/
+        "success": function(json) {
+            if (json.status == 200) {
+                var visitors=json.data;
+                new Vue({
+                    el: '#app',
+                    data: {
+                        message: '',
+                        count: visitors
+                    }
+                })
+            } else if (json.status == 402) {
+                alert("修改失败！" + json.message);
+            }else {
+                alert("莫名其妙！！！");
+            }
+        },
+        "error": function(xhr, textStatus, errorThrown) {
+            // xhr：XMLHttpRequest类型的对象
+            // - responseText：响应的文本
+            // - readyState：状态，值为0~4
+            // - status：响应码
+            console.log("状态码：" + xhr.readyState);
+            console.log("响应码：" + xhr.status);
+            console.log("响应文本：" + xhr.responseText);
+            console.log("textStatus=" + textStatus);
+            console.log("errorThrown=" + errorThrown);
+        }
+    });
+
 }

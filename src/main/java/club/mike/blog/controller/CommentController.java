@@ -1,5 +1,6 @@
 package club.mike.blog.controller;
 
+import club.mike.blog.common.util.Utils;
 import club.mike.blog.common.vo.Comment;
 import club.mike.blog.common.vo.SysResult;
 import club.mike.blog.service.CommentService;
@@ -9,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.swing.*;
 import java.util.List;
 
@@ -52,6 +55,7 @@ public class CommentController {
      */
     /**
      * boot项目应添加@JsonIgnoreProperties(ignoreUnknown=true)注解在实体类上
+     * 但还有可能是实体类没有写get、set方法
      */
     @RequestMapping("/show")
     public SysResult showComments(){
@@ -59,6 +63,20 @@ public class CommentController {
             System.out.println("show");
             List<Comment> lists=commentService.showComments();
             SysResult sysResult=new SysResult(200, "OK", lists);
+            System.out.println(sysResult);
+            return sysResult;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return SysResult.build(201, "wrong");
+    }
+@RequestMapping("/visitor")
+public SysResult showVisitors(){
+        try {
+            System.out.println("visitor");
+            //不要使用tomcat相关的，因为不能再分布式项目中统计
+            final String count = Utils.getJedisValue("count");
+            SysResult sysResult=new SysResult(200, "OK",count);
             System.out.println(sysResult);
             return sysResult;
         }catch (Exception e){
