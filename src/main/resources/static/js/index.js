@@ -1,6 +1,7 @@
 $(document).ready(function () {
     showComment();
     showVisitors();
+    showTitles();
 });
 
 /*--点击提交事件------------------------------------------------------------------------------------------------------------------------*/
@@ -80,15 +81,15 @@ function showComment() {
 
 function showVisitors() {
 
-    var url="../visitor";
+    var url = "../visitor";
     $.ajax({
         "url": url,
         "type": "post",
         "dataType": "json",
         /*"processData": false,*/
-        "success": function(json) {
+        "success": function (json) {
             if (json.status == 200) {
-                var visitors=json.data;
+                var visitors = json.data;
                 new Vue({
                     el: '#app',
                     data: {
@@ -98,11 +99,11 @@ function showVisitors() {
                 })
             } else if (json.status == 402) {
                 alert("修改失败！" + json.message);
-            }else {
+            } else {
                 alert("莫名其妙！！！");
             }
         },
-        "error": function(xhr, textStatus, errorThrown) {
+        "error": function (xhr, textStatus, errorThrown) {
             // xhr：XMLHttpRequest类型的对象
             // - responseText：响应的文本
             // - readyState：状态，值为0~4
@@ -114,5 +115,43 @@ function showVisitors() {
             console.log("errorThrown=" + errorThrown);
         }
     });
-
+}
+    /*--------显示爬虫热点信息------------------------------------------------------------------------------------------------------------------*/
+    function showTitles() {
+        var url = "../creepy";
+        $.ajax({
+            "url": url,
+            "type": "post",
+            "dataType": "json",
+            /*"processData": false,*/
+            "success": function (json) {
+                if (json.status == 200) {
+                    var hot = json.data;
+                    console.log(hot);
+                    $("#hot").empty();
+                    var html = "";
+                    for (var i = 0; i < hot.length; i++) {
+                        var element = hot[i];
+                        var temp = "<p>" + element + "</p>";
+                        html = html + temp;
+                    }
+                    $("#hot").append(html);
+                } else if (json.status == 402) {
+                    alert("修改失败！" + json.message);
+                } else {
+                    alert("莫名其妙！！！");
+                }
+            },
+            "error": function (xhr, textStatus, errorThrown) {
+                // xhr：XMLHttpRequest类型的对象
+                // - responseText：响应的文本
+                // - readyState：状态，值为0~4
+                // - status：响应码
+                console.log("状态码：" + xhr.readyState);
+                console.log("响应码：" + xhr.status);
+                console.log("响应文本：" + xhr.responseText);
+                console.log("textStatus=" + textStatus);
+                console.log("errorThrown=" + errorThrown);
+            }
+        });
 }
