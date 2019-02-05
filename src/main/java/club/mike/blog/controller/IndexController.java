@@ -17,6 +17,7 @@ import java.util.List;
 public class IndexController {
     @Autowired
     Creepy creepy;
+    int a = 0;
     @RequestMapping("/")
     public ModelAndView showIndex(){
         final String count = Utils.getJedisValue("count");
@@ -38,4 +39,22 @@ public class IndexController {
         final List<String> tencent = creepy.getTencent();
         return SysResult.oK(tencent);
     }
+    @RequestMapping("/longPolling")
+    @ResponseBody
+    public SysResult longPolling(){
+        while (true){
+            //由于是单例模线程问题严重，所以应用在redis里
+            if(a!=0)break;
+        }
+        System.out.println("break le ");
+        return new SysResult("http://www.baidu.com");
+    }
+    @RequestMapping("/commit")
+    @ResponseBody
+    public SysResult commit(){
+        a=1;
+        return new SysResult();
+    }
+
+
 }
