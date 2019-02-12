@@ -3,6 +3,7 @@ package club.mike.blog.controller;
 import club.mike.blog.common.util.Creepy;
 import club.mike.blog.common.util.Utils;
 import club.mike.blog.common.vo.SysResult;
+import club.mike.blog.service.IndexService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
@@ -18,6 +19,8 @@ import java.util.concurrent.CountDownLatch;
 public class IndexController {
     @Autowired
     Creepy creepy;
+    @Autowired
+    IndexService indexService;
     int a = 0;
     @RequestMapping("/")
     public ModelAndView showIndex(){
@@ -59,5 +62,10 @@ public class IndexController {
         return new SysResult();
     }
 
-
+    @RequestMapping("/articles")
+    @ResponseBody
+    public String articles(){
+        final String articles = indexService.findArticle();
+        return articles;
+    }
 }

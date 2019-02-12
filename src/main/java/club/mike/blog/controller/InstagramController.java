@@ -23,7 +23,7 @@ public class InstagramController extends BaseController {
         request.setCharacterEncoding("utf-8");
         response.setContentType("text/html;charset=utf-8");
         Document ins = creepy.getIns();
-        //试试存个redis进去
+        //试试存个redis进去，太笨了，还是生成html存在本地
         //https://blog.csdn.net/yinbucheng/article/details/72809009
         response.getWriter().println(ins);
 
