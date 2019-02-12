@@ -1,13 +1,19 @@
 <!DOCTYPE html>
-<html>
+<html lang="cn">
 <head>
     <meta charset="UTF-8">
+    <meta name="Author" content="Mike">
     <title>老mike的小屋</title>
-    <script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
     <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+
 </head>
 <body>
 <div id="app">
+    <div>
+        <a href="/instagram">ins</a>
+    </div>
     <div><p>今日热点：</p>
         <div id="hot"></div>
     </div>
@@ -22,10 +28,16 @@
     <hr>
     <div id="comment">
     </div>
+    <div id="instafeed">
+    </div>
     <div>
         <p>访问次数：<span>{{count}}</span></p>
     </div>
+
 </div>
+
+<p class="text-center">文档全部来自互联网, 文档版权属于各自发布组织</p>
+<p class="text-center">诚信 · 创新 · 开放 · 合作</p>
 </body>
 
 <!--该文件放在上面还没能加载页面元素-->

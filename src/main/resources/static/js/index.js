@@ -189,3 +189,26 @@ function   connect() {
         }
     });
 }
+/*--------获得instagram------------------------------------------------------------------------------------------------------------------*/
+$.ajax({
+    type: "GET",
+    dataType: "jsonp",
+    cache: false,
+    url: "https://api.instagram.com/v1/users/banksy/media/recent/?access_token=2253563781.137bf98.bd1c3693d2b84f80a7ab8d661f641437",
+    success: function(response) {
+        console.log('jfsdahuifhasudh')
+        console.log(response);
+        // placing the images on the page
+        // for (var i = 0; i < 6; i++) {
+
+        var html = '<a href="' + response.data[i].link + '" >'+
+            '<img src="' + response.data[i].images.low_resolution.url + '" alt="thumbnail" /></a>';
+        $("#instafeed").html(html);
+
+        // }
+    },
+
+    error: function(data) {
+        console.log('We have a problem!');
+    }
+});

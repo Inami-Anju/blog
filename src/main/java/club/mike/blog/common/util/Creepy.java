@@ -8,6 +8,8 @@ import org.junit.Test;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,5 +40,15 @@ public class Creepy {
         }
 
         return list;
+    }
+
+    /**获得ins的首页*/
+    public Document getIns() throws IOException {
+        Document document = null;
+        URL url=new URL("https://www.veryins.com/");
+        HttpURLConnection connection = (HttpURLConnection)url.openConnection();
+        connection.setRequestProperty("User-Agent", "Mozilla/4.0 (compatible; MSIE 5.0; Windows NT; DigExt)");
+        document = Jsoup.parse(connection.getInputStream(), "UTF-8", "https://www.veryins.com/");
+        return document;
     }
 }

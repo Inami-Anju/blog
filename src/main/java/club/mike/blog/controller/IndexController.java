@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
 
 @Controller
 @RequestMapping("/")
@@ -41,18 +42,20 @@ public class IndexController {
     }
     @RequestMapping("/longPolling")
     @ResponseBody
-    public SysResult longPolling(){
-        while (true){
+    public SysResult longPolling() throws InterruptedException {
+       // while (true){
             //由于是单例模线程问题严重，所以应用在redis里
-            if(a!=0)break;
-        }
+      //      if(a!=0)break;
+      //  }
+        CountDownLatch countDownLatch=new CountDownLatch(1);
+        countDownLatch.await();
         System.out.println("break le ");
         return new SysResult("http://www.baidu.com");
     }
     @RequestMapping("/commit")
     @ResponseBody
     public SysResult commit(){
-        a=1;
+
         return new SysResult();
     }
 
