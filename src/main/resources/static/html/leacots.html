@@ -6,8 +6,10 @@
   <title>Document</title>
   <link rel="stylesheet" type="text/css" href="../res/layui/css/layui.css">
   <link rel="stylesheet" type="text/css" href="../res/css/main.css">
+  <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
 <!--加载meta IE兼容文件-->
 <!--[if lt IE 9]>
+
 <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
 <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
 <![endif]-->
@@ -19,26 +21,26 @@
     </div>
     <h1 class="logo">
       <a href="index.html">
-        <span>MYBLOG</span>
+        <span>MYWEB</span>
         <img src="../res/img/logo.png">
       </a>
     </h1>
     <div class="nav">
-      <a href="index.html">文章</a>
-      <a href="whisper.html">微语</a>
-      <a href="leacots.html"  class="active">留言</a>
-      <a href="album.html">相册</a>
-      <a href="about.html">关于</a>
+      <a href="/html/index.html">首页</a>
+      <a href="/html/whisper.html">ins</a>
+      <a href="/html/leacots.html" class="active">留言</a>
+      <a href="/html/album.html">相册</a>
+      <a href="/html/about.html">关于</a>
     </div>
     <ul class="layui-nav header-down-nav">
-      <li class="layui-nav-item"><a href="index.html">文章</a></li>
-      <li class="layui-nav-item"><a href="whisper.html">微语</a></li>
-      <li class="layui-nav-item"><a href="leacots.html"  class="active">留言</a></li>
-      <li class="layui-nav-item"><a href="album.html">相册</a></li>
-      <li class="layui-nav-item"><a href="about.html">关于</a></li>
+      <li class="layui-nav-item"><a href="/html/index.html">首页</a></li>
+      <li class="layui-nav-item"><a href="/html/whisper.html">ins</a></li>
+      <li class="layui-nav-item"><a href="/html/leacots.html"  class="active">留言</a></li>
+      <li class="layui-nav-item"><a href="/html/album.html">相册</a></li>
+      <li class="layui-nav-item"><a href="/html/about.html">关于</a></li>
     </ul>
     <p class="welcome-text">
-      欢迎来到<span class="name">小明</span>的博客~
+      欢迎<span class="name">mike</span>的个人网站~
     </p>
   </div>
 
@@ -54,93 +56,24 @@
                   <form class="layui-form" action="">
                     <div class="layui-form-item layui-form-text">
                       <div class="layui-input-block">
-                        <textarea name="desc" placeholder="既然来了，就说几句" class="layui-textarea"></textarea>
+                        <textarea name="desc" placeholder="既然来了，就说几句" class="layui-textarea" id="inputcommon"></textarea>
                       </div>
                     </div>
                     <div class="layui-form-item">
                       <div class="layui-input-block" style="text-align: right;">
-                        <button class="layui-btn definite">確定</button>
+                        <button class="layui-btn definite" id="po">確定</button>
                       </div>
                     </div>
                   </form>
                 </div>
               </div>
               <div class="volume">
-                全部留言 <span>10</span>
+                全部留言 <span></span>
               </div>
-              <div class="list-cont">        
-                <div class="cont">
-                  <div class="img">
-                    <img src="../res/img/header.png" alt="">
-                  </div>
-                  <div class="text">
-                    <p class="tit"><span class="name">吳亦凡</span><span class="data">2018/06/06</span></p>
-                    <p class="ct">敢问大师，师从何方？上古高人呐逐一地看完你的作品后，我的心久久 不能平静！这世间怎么可能还有如此精辟的作品？我不敢相信自己的眼睛。自从改革开放以后，我就以为再也不会有任何作品能打动我，没想到今天看到这个如此精妙绝伦的作品好厉害！</p>
-                  </div>
-                </div>
-                <div class="cont">
-                  <div class="img">
-                    <img src="../res/img/header.png" alt="">
-                  </div>
-                  <div class="text">
-                    <p class="tit"><span class="name">吳亦凡</span><span class="data">2018/06/06</span></p>
-                    <p class="ct">敢问大师，师从何方？上古高人呐逐一地看完你的作品后，我的心久久 不能平静！这世间怎么可能还有如此精辟的作品？我不敢相信自己的眼睛。自从改革开放以后，我就以为再也不会有任何作品能打动我，没想到今天看到这个如此精妙绝伦的作品好厉害！</p>
-                  </div>
-                </div>
-                <div class="cont">
-                  <div class="img">
-                    <img src="../res/img/header.png" alt="">
-                  </div>
-                  <div class="text">
-                    <p class="tit"><span class="name">吳亦凡</span><span class="data">2018/06/06</span></p>
-                    <p class="ct">敢问大师，师从何方？上古高人呐逐一地看完你的作品后，我的心久久 不能平静！这世间怎么可能还有如此精辟的作品？我不敢相信自己的眼睛。自从改革开放以后，我就以为再也不会有任何作品能打动我，没想到今天看到这个如此精妙绝伦的作品好厉害！</p>
-                  </div>
-                </div>
-                <div class="cont">
-                  <div class="img">
-                    <img src="../res/img/header.png" alt="">
-                  </div>
-                  <div class="text">
-                    <p class="tit"><span class="name">吳亦凡</span><span class="data">2018/06/06</span></p>
-                    <p class="ct">敢问大师，师从何方？上古高人呐逐一地看完你的作品后，我的心久久 不能平静！这世间怎么可能还有如此精辟的作品？我不敢相信自己的眼睛。自从改革开放以后，我就以为再也不会有任何作品能打动我，没想到今天看到这个如此精妙绝伦的作品好厉害！</p>
-                  </div>
-                </div>
-                <div class="cont">
-                  <div class="img">
-                    <img src="../res/img/header.png" alt="">
-                  </div>
-                  <div class="text">
-                    <p class="tit"><span class="name">吳亦凡</span><span class="data">2018/06/06</span></p>
-                    <p class="ct">敢问大师，师从何方？上古高人呐逐一地看完你的作品后，我的心久久 不能平静！这世间怎么可能还有如此精辟的作品？我不敢相信自己的眼睛。自从改革开放以后，我就以为再也不会有任何作品能打动我，没想到今天看到这个如此精妙绝伦的作品好厉害！</p>
-                  </div>
-                </div>
-                <div class="cont">
-                  <div class="img">
-                    <img src="../res/img/header.png" alt="">
-                  </div>
-                  <div class="text">
-                    <p class="tit"><span class="name">吳亦凡</span><span class="data">2018/06/06</span></p>
-                    <p class="ct">敢问大师，师从何方？上古高人呐逐一地看完你的作品后，我的心久久 不能平静！这世间怎么可能还有如此精辟的作品？我不敢相信自己的眼睛。自从改革开放以后，我就以为再也不会有任何作品能打动我，没想到今天看到这个如此精妙绝伦的作品好厉害！</p>
-                  </div>
-                </div>
-                <div class="cont">
-                  <div class="img">
-                    <img src="../res/img/header.png" alt="">
-                  </div>
-                  <div class="text">
-                    <p class="tit"><span class="name">吳亦凡</span><span class="data">2018/06/06</span></p>
-                    <p class="ct">敢问大师，师从何方？上古高人呐逐一地看完你的作品后，我的心久久 不能平静！这世间怎么可能还有如此精辟的作品？我不敢相信自己的眼睛。自从改革开放以后，我就以为再也不会有任何作品能打动我，没想到今天看到这个如此精妙绝伦的作品好厉害！</p>
-                  </div>
-                </div>
-                <div class="cont">
-                  <div class="img">
-                    <img src="../res/img/header.png" alt="">
-                  </div>
-                  <div class="text">
-                    <p class="tit"><span class="name">吳亦凡</span><span class="data">2018/06/06</span></p>
-                    <p class="ct">敢问大师，师从何方？上古高人呐逐一地看完你的作品后，我的心久久 不能平静！这世间怎么可能还有如此精辟的作品？我不敢相信自己的眼睛。自从改革开放以后，我就以为再也不会有任何作品能打动我，没想到今天看到这个如此精妙绝伦的作品好厉害！</p>
-                  </div>
-                </div>
+              <div class="list-cont" id="list-comment">
+
+
+
               </div>
           </div>
         </div>
@@ -148,50 +81,101 @@
       <div id="demo" style="text-align: center;"></div>
     </div>
   </div>
-  <script type="text/html" id="laytplCont">
-    <div class="cont">
-      <div class="img">
-        {{#  if(d.avatar){ }}
-        <img src="{{d.avatar}}" alt="">
-        {{#  } else { }}
-        <img src="../res/img/header.png" alt="">
-        {{# } }}
-      </div>
-      <div class="text">
-        <p class="tit"><span class="name">{{d.name}}</span><span class="data">2018/06/06</span></p>
-        <p class="ct">{{d.cont}}</p>
-      </div>
-    </div>
-  </script>
-  <div class="footer-wrap">
-    <div class="footer w1000">
-      <div class="qrcode">
-        <img src="../res/img/erweima.jpg">
-      </div>
-      <div class="practice-mode">
-        <img src="../res/img/down_img.jpg">
-        <div class="text">
-          <h4 class="title">我的联系方式</h4>
-          <p>微信<span class="WeChat">1234567890</span></p>
-          <p>手机<span class="iphone">1234567890</span></p>
-          <p>邮箱<span class="email">1234567890@qq.com</span></p>
-        </div>
-      </div>
-    </div>
-  </div>
   <script type="text/javascript" src="../res/layui/layui.js"></script>
   <script type="text/javascript">
-   layui.config({
+    layui.config({
       base: '../res/js/util/'
-    }).use(['element','laypage','form','menu'],function(){
-      element = layui.element,laypage = layui.laypage,form = layui.form,menu = layui.menu;
+    }).use(['element','laypage','jquery','menu'],function(){
+      element = layui.element,laypage = layui.laypage,$ = layui.$,menu = layui.menu;
       laypage.render({
         elem: 'demo'
         ,count: 70 //数据总数，从服务端得到
       });
       menu.init();
-      menu.submit()
     })
+  </script>
+  <script type="text/javascript">
+    /*--------显示评论------------------------------------------------------------------------------------------------------------------*/
+    function showComment() {
+      /*Resource interpreted as Document but transferred with MIME type application/json*/
+      var url = "../comment/show";
+      $.ajax({
+        "url": url,
+        "type": "post",
+        "dataType": "json",
+        /*"processData": false,*/
+        "success": function(json) {
+          console.log("json.status="+json.status);
+          if (json.status == 200) {
+            var data=json.data;
+            $("#comment").empty();
+            var html="";
+            for (var i = 0; i < data.length; i++) {
+              var element = data[i];
+              var name=element.uid;
+              var com=element.comment;
+              //var time=element.createTime;
+              var time=renderTime(element.createTime);
+              var temp= '<div class="cont"><div class="img"> <img src="../res/img/header.png" alt=""> </div> <div class="text"> <p class="tit">'
+                     +'<span class="name">用户名：'+name+'</span><span class="data">'+time+'</span></p> <p class="ct">'
+                     +com+'</p></div></div>';
+              html=html+temp;
+            }
+            $("#list-comment").append(html);
+          } else if (json.status == 402) {
+            alert("修改失败！" + json.message);
+          }else {
+            alert("莫名其妙！！！");
+          }
+        },
+        "error": function(xhr, textStatus, errorThrown) {
+          // xhr：XMLHttpRequest类型的对象
+          // - responseText：响应的文本
+          // - readyState：状态，值为0~4
+          // - status：响应码
+          console.log("状态码：" + xhr.readyState);
+          console.log("响应码：" + xhr.status);
+          console.log("响应文本：" + xhr.responseText);
+          console.log("textStatus=" + textStatus);
+          console.log("errorThrown=" + errorThrown);
+        }
+      });
+
+
+    }
+    showComment();
+    /*--点击提交事件------------------------------------------------------------------------------------------------------------------------*/
+    $('#po').click(function(){
+      var url = "../comment/post";
+      var _comment =$("#inputcommon").val();
+      var _uid=3;
+      var data={comment:_comment,uid:_uid};
+      $.ajax({
+        "url": url,
+        "data": data,
+        "type": "post",
+        "dataType": "json",
+        "contentType": "application/x-www-form-urlencoded; charset=utf-8",
+        /*"processData": false,*/
+        "success": function(json) {
+          alert(json.status);
+          if (json.status == 200) {
+            alert("添加成功！"+json.data);
+            showComment();
+          } else if (json.status == 402) {
+            alert("修改失败！" + json.message);
+          }else {
+            alert("莫名其妙！！！");
+          }
+        }
+      });
+    });
+
+    function renderTime(date) {
+      var dateee = new Date(date).toJSON();
+      return new Date(+new Date(dateee) + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '')
+    }
+
   </script>
 </body>
 </html>

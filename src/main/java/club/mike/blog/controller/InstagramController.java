@@ -27,6 +27,5 @@ public class InstagramController extends BaseController {
         //https://blog.csdn.net/yinbucheng/article/details/72809009
         response.getWriter().println(ins);
 
-
     }
 }

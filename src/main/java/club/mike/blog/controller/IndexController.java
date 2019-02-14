@@ -27,7 +27,7 @@ public class IndexController {
         final String count = Utils.getJedisValue("count");
         final int i = Integer.parseInt(count);
         Utils.setJedisValue("count",i+1+"");
-        return new ModelAndView("index.html");//视图名需写全
+        return new ModelAndView("html/index.html");//视图名需写全
     }
 
     @RequestMapping("/visitor")
@@ -43,13 +43,10 @@ public class IndexController {
         final List<String> tencent = creepy.getTencent();
         return SysResult.oK(tencent);
     }
-    @RequestMapping("/longPolling")
+   // @RequestMapping("/longPolling")
     @ResponseBody
     public SysResult longPolling() throws InterruptedException {
-       // while (true){
-            //由于是单例模线程问题严重，所以应用在redis里
-      //      if(a!=0)break;
-      //  }
+
         CountDownLatch countDownLatch=new CountDownLatch(1);
         countDownLatch.await();
         System.out.println("break le ");
