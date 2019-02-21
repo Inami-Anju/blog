@@ -11,7 +11,7 @@ import java.util.Date;
 public class Comment {
     @TableId(type= IdType.AUTO)
     private Long id;
-    private Long uid;
+    private String username;
     private String comment;
     private Date createTime;
 
@@ -26,12 +26,12 @@ public class Comment {
         this.id = id;
     }
 
-    public Long getUid() {
-        return uid;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUid(Long uid) {
-        this.uid = uid;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getComment() {
@@ -54,7 +54,7 @@ public class Comment {
     public String toString() {
         return "Comment{" +
                 "id=" + id +
-                ", uid=" + uid +
+                ", username='" + username + '\'' +
                 ", comment='" + comment + '\'' +
                 ", createTime=" + createTime +
                 '}';
