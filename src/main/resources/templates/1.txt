@@ -1,0 +1,616 @@
+<form class="layui-form layui-form-pane1 pzjzsj" action="">
+
+    <div class="layui-form-item">
+
+        <label class="layui-form-label">手机号</label>
+
+        <div class="layui-input-inline">
+
+            <input type="text" name="mobile" lay-verify="phone" placeholder="请输入手机号" autocomplete="off" class="layui-input" value="${PhomeUser.mobile }"/>
+
+        </div>
+
+    </div>
+
+    <div class="layui-form-item">
+
+        <label class="layui-form-label">真实姓名</label>
+
+        <div class="layui-input-inline">
+
+            <input type="text" name="truename" lay-verify="required" placeholder="请输入姓名" autocomplete="off" class="layui-input" value="${PhomeUser.truename }"/>
+
+        </div>
+
+    </div>
+
+    <div class="layui-form-item">
+
+        <label class="layui-form-label">员工类型</label>
+
+        <div class="layui-input-inline">
+
+            <select name="gid" lay-verify="required">
+
+                <option value=""></option>
+
+                <option value="2">普通员工</option>
+
+                <option value="3">测试员工</option>
+
+            </select>
+
+        </div>
+
+    </div>
+
+
+
+    <div class="layui-form-item">
+
+        <label class="layui-form-label">密码</label>
+
+        <div class="layui-input-inline">
+
+            <input type="password" name="firstpwd" id="firstpwd" lay-verify="firstpwd" placeholder="请输入密码" autocomplete="off" class="layui-input" value=""/>
+
+        </div>
+
+    </div>
+
+    <div class="layui-form-item">
+
+        <label class="layui-form-label">确认密码</label>
+
+        <div class="layui-input-inline">
+
+            <input type="password" name="secondpwd" id="secondpwd" lay-verify="secondpwd" placeholder="请再次输入密码" autocomplete="off" class="layui-input"/>
+
+        </div>
+
+    </div>
+
+
+
+    <div class="layui-form-item">
+
+        <label class="layui-form-label">系统分配</label>
+
+        <a class="layui-btn layui-btn-normal" href="javascript:disAuthority()">选择系统分配</a>
+
+        <input type="hidden" name="productCodes" id="productCodes" value="" lay-verify="productCodes" placeholder=""/>
+
+    </div>
+
+
+
+    <div class="layui-form-item">
+
+        <label class="layui-form-label">权限</label>
+
+        <input type="radio" name="quanxian" id="quanxian" value="0" title="查看"/>
+
+        <input type="radio" name="quanxian" id="quanxian" value="1" title="维护" />
+
+        <input type="hidden" name="sysqx" id="sysqx" value="" lay-verify="sysqx" placeholder=""/>
+
+        <input type="hidden" name="view" id="view" value=""/>
+
+        <input type="hidden" name="edit" id="edit" value=""/>
+
+    </div>
+
+
+
+    <!--默认按钮开始-->
+
+    <div class="layui-form-item layui-inline">
+
+        <button class="layui-btn layui-inline  fl w130" lay-submit lay-filter="save">保存</button>
+
+        <button class="layui-btn layui-btn-primary layui-inline fr w130"  id="closeBtn">取消</button>
+
+    </div>
+
+</form>
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+
+    layui.use(['layer', 'form'], function () {
+
+        var layer = layui.layer, $ = layui.jquery, form = layui.form();
+
+//表单验证
+
+        form.verify({
+
+            firstpwd: [/(.+){6,12}$/, '密码必须6到12位'],
+
+            secondpwd: function(value) {
+
+                if(value != $("#firstpwd").val()){
+
+                    $("#secondpwd").val("");
+
+                    return '确认密码与密码不一致';
+
+                }
+
+            },
+
+            productCodes: function(value){
+
+                if(value == ''){
+
+                    return "请选择系统分配";
+
+                }
+
+            },
+
+            sysqx: function(value){
+
+                if(value == ''){
+
+                    return "请选择权限";
+
+                }
+
+            }
+
+        });
+
+//单选监听及过滤事件
+
+        form.on('radio', function(data){
+
+            if(data.value==0){
+
+                $("#view").val(1);
+
+                $("#edit").val(0);
+
+            }else if(data.value==1){
+
+                $("#view").val(0);
+
+                $("#edit").val(1);
+
+            }
+
+            $("#sysqx").val(data.value);
+
+            console.log(data.value)
+
+        });
+
+        //提交监听事件
+
+        form.on('submit(save)', function (data) {
+
+            params = data.field;
+
+//alert(JSON.stringify(params))
+
+            submit($,params);
+
+            return false;
+
+        })
+
+        var obj = document.getElementById('closeBtn');
+
+        obj.addEventListener('click', function cancel(){
+
+            CloseWin();
+
+        });
+
+
+
+    })
+
+    //提交
+
+    function submit($,params){
+
+        $.post('${path}/sys/user_systemallot_insert.do', params, function (res) {
+
+            if (res.status==1) {
+
+                layer.msg(res.message,{icon:1},function(index){
+
+                    CloseWin();
+
+                })
+
+            }else if(res.status==2){
+
+                layer.msg(res.message,{icon:0},function(){
+
+                    parent.location.href='${path}/sys/toLogin';
+
+                    CloseWin();
+
+                })
+
+            }else{
+
+                layer.msg(res.message,{icon:0},function(){
+
+                    location.reload(); // 页面刷新
+
+                    return false
+
+                })
+
+            }
+
+        }, 'json');
+
+    }
+
+
+
+    //关闭页面
+
+    function CloseWin(){
+
+        parent.location.reload(); // 父页面刷新
+
+        var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+
+        parent.layer.close(index); //再执行关闭
+
+    }
+
+
+
+    //window.open弹窗事件
+
+    var openWin ;
+
+    function disAuthority(){
+
+        var url = '${path}/sys/user_systemallot.do';
+
+        /*   layer.open({
+
+         type: 2,
+
+         title: '分配系统及权限',
+
+         shadeClose: true,
+
+         shade: false,
+
+         maxmin: true, //开启最大化最小化按钮
+
+         area: ['800px', '500px'],
+
+         content: url
+
+        });  */
+
+        openWin = window.open(url,'分配系统及权限','height=480,width=800,top=130,left=200,toolbar =no, menubar=no, scrollbars=no, resizable=no, location=no, status=no');
+
+    }
+
+
+
+    //设置系统编号（window.open弹出页面向父页面传值调取方法）
+
+    function setCodes(codes){
+
+        document.getElementById("productCodes").value=codes;
+
+        openWin.close();
+
+    }
+
+</script>
+
+
+
+
+
+<!------------二------------------ 权限管理页面------弹出页面-------------------------->
+
+//window.open弹出页面，选择系统权限表单（重点是选择checkbox,选中与取消）
+
+<form class="layui-form layui-form-pane1" action=""  name="formdemo">
+
+    <div class="layui-form-item layui-inline">
+
+        <div class="layui-input-block ml0">
+
+            <input type="hidden" name="codings" id="codings"/>
+
+            <a class="layui-btn layui-inline fr" href="javascript:selProduct()">分配</a>
+
+        </div>
+
+    </div>
+
+    <!--表格开始-->
+
+    <table class="layui-table" id="tbodyID" >
+
+        <thead>
+
+        <tr>
+
+            <th><input type="checkbox" id="ckb_select" name="ckb_select"  value=""/></th>
+
+            <th>系统名称</th>
+
+            <th>机组数</th>
+
+            <th>蒸发器数</th>
+
+            <th>系统创建时间</th>
+
+        </tr>
+
+        </thead>
+
+        <c:forEach items="${productList}" var="list">
+
+            <tbody>
+
+            <tr>
+
+                <td><input  type="checkbox"  id="checknum" name="checknum" value="${list.coding }"/></td>
+
+                <td>${list.title }</td>
+
+                <td>${list.aircrewCnt }</td>
+
+                <td>${list.evaporatorCnt }</td>
+
+                <td>${list.creatTime} </td>
+
+            </tr>
+
+            </tbody>
+
+        </c:forEach>
+
+    </table>
+
+    <!-- 表格结束 -->
+
+</form>
+
+
+
+<script>
+
+    /*  layui.use(['layer', 'form','element'], function () {
+
+    var layer = layui.layer, $ = layui.jquery, form = layui.form(),element = layui.element();
+
+      form.on('submit(distri)', function (data) {
+
+    window.opener.setCodes(selectAll());
+
+    return false;
+
+    });
+
+    })    */
+
+
+
+    //window.open弹出页面调取父页面方法并赋值
+
+    function selProduct(){
+
+        window.opener.setCodes(selectAll());
+
+    }
+
+
+
+    //checkbox选中事件，全选及部分选择
+
+    $(function(){
+
+        $('#tbodyID #ckb_select').on('click',function(evt){
+
+            var allCks = document.getElementsByName("ckb_select");
+
+            var cks = document.getElementsByName("checknum");
+
+            if(allCks[0].checked){
+
+                for(i=0;i<cks.length;i++){
+
+                    cks[i].checked = true;
+
+                }
+
+            }else{
+
+                for(i=0;i<cks.length;i++){
+
+                    cks[i].checked = false;
+
+                }
+
+            }
+
+        });
+
+    });
+
+
+
+    //获取选中的checkbox所在行字段所有值的字符串拼接
+
+    function selectAll(){
+
+        var text = $("input:checkbox[name='checknum']:checked").map(function(index,elem) {
+
+            return $(elem).val();
+
+        }).get().join(',');
+
+        //$("#codings").val(text);
+
+        //alert("选中的checkbox的值为："+text);
+
+        return text;
+
+    }
+
+</script>
+
+
+
+<!-----------三--------------layer--------表单checkbox---默认选中事件------------------->
+
+<form class="layui-form layui-form-pane1 pzjzsj">
+
+    <input type="hidden" name="productCoding" id="productCoding" value="${productCoding }">
+
+    <input type="hidden" id="coding" name="coding" value="${coding }"/>
+
+    <input type="hidden" id="status" name="status" value="${status }"/>
+
+    <div class="layui-form-item layui-inline">
+
+        <div class="layui-form-item layui-inline">
+
+            <label class="layui-form-label">蒸发器开启：</label>
+
+            <div class="layui-input-block" id="temp">
+
+                <input type="checkbox" name="evpstatus" id="evpstatus" lay-skin="switch" value="${status }" <c:if test="${status eq 1}">checked</c:if>/>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="layui-form-item layui-inline">
+
+        <button class="layui-btn  layui-btn layui-inline  fl w130" lay-submit lay-filter="save">保存</button>
+
+        <button class="layui-btn layui-btn-primary layui-inline fr w130"  id="closeBtn">取消</button>
+
+    </div>
+
+</form>
+
+
+
+
+
+<script>
+
+    layui.use('form', function(){
+
+        var form = layui.form();
+
+        form.on('switch', function(data){
+
+            if(data.value==1){
+
+                $("#evpstatus").val(0);
+
+            }else{
+
+                $("#evpstatus").val(1);
+
+            }
+
+//console.log(data.value)
+
+        });
+
+        //监听提交
+
+        form.on('submit(save)', function(data){
+
+            params = data.field;
+
+//console.log(JSON.stringify(params))
+
+            var obj = new Object();
+
+            obj.productCoding = params.productCoding;
+
+            obj.coding = params.coding;
+
+            obj.parameter = "PE003";
+
+            if(params.evpstatus == undefined){
+
+                obj.value = "0";
+
+            }else{
+
+                obj.value = params.evpstatus;
+
+            }
+
+            console.log(JSON.stringify(obj));
+
+            submit($,obj);
+
+            return false;
+
+        });
+
+    });
+
+
+
+    function submit($,params){
+
+        $.post('${path}/ctrl/controlEdit', params, function (res) {
+
+            console.log(JSON.stringify(res));
+
+            layer.msg(res.msg,{icon:1},function(index){
+
+                parent.location.href=path+'/evaporator/list?productCoding='+'${productCoding}';
+
+                CloseWin();
+
+            })
+
+        }, 'json');
+
+    }
+
+
+
+    //关闭页面
+
+    var obj = document.getElementById('closeBtn');
+
+    obj.addEventListener('click', function cancel(){
+
+        CloseWin();
+
+    });
+
+    function CloseWin(){
+
+        var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+
+        parent.layer.close(index); //再执行关闭
+
+    }
+
+</script>

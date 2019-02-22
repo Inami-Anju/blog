@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="../res/layui/css/layui.css"/>
+    <script src="../res/layui/layui.all.js"></script>
+    <script src="../res/layui/lay/modules/jquery.js"></script>
+    <!--加载meta IE兼容文件-->
+    <!--[if lt IE 9]>
+    <![endif]-->
+
+</head>
+<body>
+<form class="layui-form">
+    <div class="layui-form-item">
+        <label class="layui-form-label">输入框</label>
+        <div class="layui-input-block">
+            <input type="text" name="username"  lay-verify="username" class="layui-input">
+        </div>
+    </div>
+
+    <button class="layui-btn"  name="submit" lay-submit lay-filter="formDemo" >submit</button>
+
+</form>
+<script>
+    layui.use(['form','jquery'],function () {
+        var form=layui.form;
+        var $=layui.jquery;
+        var a=0;
+        form.verify({
+            username:function (value) {
+                console.log(value);
+                a = 0;
+            }
+        });
+
+        form.on('submit(formDemo)',function (data) {
+            console.log("sss"+a);
+            showComment();
+            return false;//不跳转页面
+        });
+
+        function showComment() {
+            /*Resource interpreted as Document but transferred with MIME type application/json*/
+            alert("showComment方法");
+            var url = "../comment/show";
+            $.ajax({
+                "url": url,
+                "type": "post",
+                "dataType": "json",
+                /*"processData": false,*/
+                "success": function (json) {
+                    console.log("json.status=" + json.status);
+                    if (json.status == 200) {
+                        var data = json.data;
+                        $("#comment").empty();
+                        var html = "";
+                        for (var i = 0; i < data.length; i++) {
+                            var element = data[i];
+                            var name = element.username;
+                            var com = element.comment;
+                            //var time=element.createTime;
+                            var time = renderTime(element.createTime);
+                            var temp = '<div class="cont"><div class="img"> <img src="../res/img/header.png" alt=""> </div> <div class="text"> <p class="tit">'
+                                + '<span class="name">用户名：' + name + '</span><span class="data">' + time + '</span></p> <p class="ct">'
+                                + com + '</p></div></div>';
+                            html = html + temp;
+                        }
+                        $("#list-comment").append(html);
+
+                    } else if (json.status == 402) {
+                        alert("修改失败！" + json.message);
+                    } else {
+                        alert("莫名其妙！！！");
+                    }
+                },
+                "error": function (xhr, textStatus, errorThrown) {
+                    // xhr：XMLHttpRequest类型的对象
+                    // - responseText：响应的文本
+                    // - readyState：状态，值为0~4
+                    // - status：响应码
+                    console.log("状态码：" + xhr.readyState);
+                    console.log("响应码：" + xhr.status);
+                    console.log("响应文本：" + xhr.responseText);
+                    console.log("textStatus=" + textStatus);
+                    console.log("errorThrown=" + errorThrown);
+                }
+            });
+
+            alert("showComment方法结束");
+        }
+    });
+</script>
+</body>
+</html>
